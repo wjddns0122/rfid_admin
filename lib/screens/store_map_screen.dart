@@ -41,8 +41,11 @@ class StoreMapScreen extends StatelessWidget {
               radius: 14,
               backgroundColor: const Color(0xFFE2E8F0),
               child: ClipOval(
-                // TODO: 실제 유저 이미지로 교체
-                child: Container(color: Colors.grey[300]),
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=60',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container(color: Colors.grey[300]),
+                ),
               ),
             ),
           ),
@@ -253,9 +256,18 @@ class StoreMapScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: const Color(0xFFEEEDF3),
                         borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: const Color(0xFFC7C4D7)),
                       ),
-                      // TODO: Asset image
-                      child: const Icon(Icons.image, color: Colors.grey),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(11),
+                        child: Image.network(
+                          'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop&q=60',
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) => const Center(
+                            child: Icon(Icons.image, color: Colors.grey),
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(

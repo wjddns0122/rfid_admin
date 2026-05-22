@@ -1,3 +1,4 @@
+import 'package:admin_rfid/screens/inventory_screen.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../screens/locker_status_screen.dart';
@@ -14,10 +15,7 @@ class DashboardOperationList extends StatelessWidget {
           padding: EdgeInsets.only(left: 4, bottom: 12),
           child: Text(
             '운영 관리',
-            style: TextStyle(
-              color: AppColors.textSecondary,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: AppColors.textSecondary, fontSize: 14),
           ),
         ),
         Container(
@@ -29,6 +27,12 @@ class DashboardOperationList extends StatelessWidget {
           child: Column(
             children: [
               _buildListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => InventoryScreen()),
+                  );
+                },
                 iconData: Icons.inventory_2_outlined,
                 iconBgColor: const Color(0x1A894200), // rgba(137,66,0,0.1)
                 iconColor: const Color(0xFF894200),
@@ -49,7 +53,9 @@ class DashboardOperationList extends StatelessWidget {
                         child: const LinearProgressIndicator(
                           value: 12 / 20,
                           backgroundColor: Color(0x4DC7C4D7),
-                          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4441CC)),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFF4441CC),
+                          ),
                           minHeight: 6,
                         ),
                       ),
@@ -98,52 +104,57 @@ class DashboardOperationList extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: iconBgColor,
-                  borderRadius: BorderRadius.circular(8),
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: iconBgColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(iconData, color: iconColor),
                 ),
-                child: Icon(iconData, color: iconColor),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    if (subtitle != null) ...[
-                      const SizedBox(height: 2),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
-                        subtitle,
+                        title,
                         style: const TextStyle(
-                          color: AppColors.textSecondary,
-                          fontSize: 14,
+                          color: AppColors.textPrimary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ] else if (subtitleWidget != null) ...[
-                      const SizedBox(height: 4),
-                      subtitleWidget,
+                      if (subtitle != null) ...[
+                        const SizedBox(height: 2),
+                        Text(
+                          subtitle,
+                          style: const TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ] else if (subtitleWidget != null) ...[
+                        const SizedBox(height: 4),
+                        subtitleWidget,
+                      ],
                     ],
-                  ],
+                  ),
                 ),
-              ),
-              const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
-            ],
+                const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
+              ],
+            ),
           ),
         ),
-      ),
         if (showDivider)
-          const Divider(height: 1, color: Color(0x33C7C4D7), indent: 16, endIndent: 16),
+          const Divider(
+            height: 1,
+            color: Color(0x33C7C4D7),
+            indent: 16,
+            endIndent: 16,
+          ),
       ],
     );
   }

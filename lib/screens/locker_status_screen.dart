@@ -255,7 +255,16 @@ class _LockerStatusScreenState extends State<LockerStatusScreen> {
               ),
               child: Stack(
                 children: [
-                  // TODO: Use actual image asset here
+                  Positioned.fill(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.network(
+                        'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&auto=format&fit=crop&q=60',
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Container(color: const Color(0xFF464554)),
+                      ),
+                    ),
+                  ),
                   Positioned.fill(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
@@ -266,7 +275,7 @@ class _LockerStatusScreenState extends State<LockerStatusScreen> {
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              Color(0x990F172A),
+                              Color(0xCC0F172A),
                             ],
                           ),
                         ),

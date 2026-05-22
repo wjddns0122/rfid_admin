@@ -1,3 +1,6 @@
+import 'package:admin_rfid/screens/customer_request_screen.dart';
+import 'package:admin_rfid/screens/order_screen.dart';
+import 'notification_screen.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../widgets/dashboard_main_card.dart';
@@ -32,8 +35,14 @@ class StaffDashboardScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 border: Border.all(color: const Color(0xFFC7C4D7)),
               ),
-              // TODO: 실제 프로필 이미지 연결
-              child: const Icon(Icons.person, size: 20, color: Colors.grey),
+              child: ClipOval(
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=60',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.person, size: 20, color: Colors.grey),
+                ),
+              ),
             ),
           ),
         ),
@@ -47,8 +56,18 @@ class StaffDashboardScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: AppColors.primary),
-            onPressed: () {},
+            icon: const Icon(
+              Icons.notifications_none,
+              color: AppColors.primary,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationScreen(),
+                ),
+              );
+            },
           ),
           const SizedBox(width: 8),
         ],
@@ -58,12 +77,29 @@ class StaffDashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const DashboardMainCard(),
+            DashboardMainCard(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (c) => const CustomerRequestScreen(),
+                  ),
+                );
+              },
+            ),
             const SizedBox(height: 24),
             Row(
-              children: const [
+              children: [
                 Expanded(
                   child: DashboardMetricCard(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (c) => const CustomerRequestScreen(),
+                        ),
+                      );
+                    },
                     status: '대기',
                     statusBgColor: AppColors.statusWaitBg,
                     statusTextColor: AppColors.statusWaitText,
@@ -76,6 +112,12 @@ class StaffDashboardScreen extends StatelessWidget {
                 SizedBox(width: 12),
                 Expanded(
                   child: DashboardMetricCard(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (c) => const OrderScreen()),
+                      );
+                    },
                     status: '처리중',
                     statusBgColor: AppColors.statusProcessBg,
                     statusTextColor: AppColors.statusProcessText,
@@ -95,10 +137,17 @@ class StaffDashboardScreen extends StatelessWidget {
               height: 56,
               child: ElevatedButton.icon(
                 onPressed: () {},
-                icon: const Icon(Icons.add_circle_outline, color: AppColors.primary),
+                icon: const Icon(
+                  Icons.add_circle_outline,
+                  color: AppColors.primary,
+                ),
                 label: const Text(
                   '새 요청 수동 등록',
-                  style: TextStyle(color: AppColors.primary, fontSize: 16, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                    color: AppColors.primary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.cardBackground,

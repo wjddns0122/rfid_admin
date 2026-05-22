@@ -1,9 +1,131 @@
 import 'package:flutter/material.dart';
+import '../models/order_item_data.dart';
 import '../theme/app_theme.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
+import '../widgets/order_options_bottom_sheet.dart';
+import 'order_detail_screen.dart';
+import 'order_success_screen.dart';
+import 'notification_screen.dart';
 
-class OrderScreen extends StatelessWidget {
+class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
+
+  @override
+  State<OrderScreen> createState() => _OrderScreenState();
+}
+
+class _OrderScreenState extends State<OrderScreen> {
+  late List<OrderItemData> _orderItems;
+
+  @override
+  void initState() {
+    super.initState();
+    _orderItems = [
+      OrderItemData(
+        id: '1',
+        brand: 'LUMINA-X1',
+        name: '프리미엄 크로노 워치',
+        options: '사이즈: 42mm / 색상: 스페이스 그레이',
+        quantity: 1,
+        status: '스캔 대기',
+        statusMessage: '스캔 대기',
+        statusColor: const Color(0xFF3F3BBD),
+        statusIcon: Icons.qr_code_scanner,
+        isScanned: false,
+        imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60',
+        imagePlaceholderIcon: Icons.watch,
+        subtitle: '남성용 럭셔리 컬렉션 - 실버 & 블랙',
+        sku: 'WCH-2024-001',
+        color: '스페이스 그레이',
+        size: '42mm',
+        locationZone: 'A-04',
+        locationShelf: '12',
+        availableStock: 24,
+        pickingCaution: '고가의 귀중품입니다. 피킹 시 반드시 전용 보관함을 사용하고, 스크래치 방지를 위해 장갑을 착용하십시오.',
+      ),
+      OrderItemData(
+        id: '2',
+        brand: 'VELOCITY-PRO',
+        name: '에어로니트 트레이닝 스니커즈',
+        options: '사이즈: 270 / 색상: 크림슨 레드',
+        quantity: 1,
+        status: '스캔 대기',
+        statusMessage: '스캔 대기',
+        statusColor: const Color(0xFF3F3BBD),
+        statusIcon: Icons.qr_code_scanner,
+        isScanned: false,
+        imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60',
+        imagePlaceholderIcon: Icons.directions_run,
+        subtitle: '초경량 러닝 컬렉션 - 크림슨 레드',
+        sku: 'SNK-2024-912',
+        color: '크림슨 레드',
+        size: '270mm',
+        locationZone: 'C-11',
+        locationShelf: '03',
+        availableStock: 8,
+        pickingCaution: '박스 파손 주의. 좌우 신발 사이즈(270)가 동일한지 최종 스캔 전 확인하십시오.',
+      ),
+      OrderItemData(
+        id: '3',
+        brand: 'SONIC-H2',
+        name: '노이즈 캔슬링 헤드셋',
+        options: '사이즈: 프리 / 색상: 팬텀 블랙',
+        quantity: 1,
+        status: '스캔 대기',
+        statusMessage: '스캔 대기',
+        statusColor: const Color(0xFF3F3BBD),
+        statusIcon: Icons.qr_code_scanner,
+        isScanned: false,
+        imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60',
+        imagePlaceholderIcon: Icons.headphones,
+        subtitle: '하이레스 무선 오디오 - 팬텀 블랙',
+        sku: 'HDS-2024-441',
+        color: '팬텀 블랙',
+        size: '프리 사이즈',
+        locationZone: 'D-05',
+        locationShelf: '09',
+        availableStock: 3,
+        pickingCaution: '배터리가 포함된 정밀 전자기기입니다. 충격에 극히 취약하므로 에어캡 완충재로 이중 포장하십시오.',
+      ),
+    ];
+  }
+
+  void _resetAllScans() {
+    setState(() {
+      for (var item in _orderItems) {
+        item.isScanned = false;
+        item.status = '스캔 대기';
+        item.statusMessage = '스캔 대기';
+        item.statusColor = const Color(0xFF3F3BBD);
+        item.statusIcon = Icons.qr_code_scanner;
+      }
+    });
+  }
+
+  void _navigateToSuccessScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OrderSuccessScreen(
+          scannedItems: _orderItems,
+          onResetScan: _resetAllScans,
+        ),
+      ),
+    );
+  }
+
+  void _markAllAsScanned() {
+    setState(() {
+      for (var item in _orderItems) {
+        item.isScanned = true;
+        item.status = '스캔완료';
+        item.statusMessage = '1/1 완료';
+        item.statusColor = const Color(0xFF16A34A);
+        item.statusIcon = Icons.check_circle;
+      }
+    });
+    _navigateToSuccessScreen();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +158,14 @@ class OrderScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_none, color: AppColors.primary),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationScreen(),
+                ),
+              );
+            },
           ),
           const SizedBox(width: 8),
         ],
@@ -229,48 +358,50 @@ class OrderScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                // Item 1
-                _buildOrderItemCard(
-                  brand: 'LUMINA-X1',
-                  name: '프리미엄 가죽 시계 스트랩',
-                  options: '사이즈: Large / 색상: 코냑',
-                  quantity: 1,
-                  status: '스캔완료',
-                  statusMessage: '1/1 완료',
-                  statusColor: const Color(0xFF16A34A),
-                  statusIcon: Icons.check_circle,
-                  isScanned: true,
-                  imagePlaceholderIcon: Icons.watch,
-                ),
-                const SizedBox(height: 12),
-
-                // Item 2
-                _buildOrderItemCard(
-                  brand: 'VELOCITY-PRO',
-                  name: '에어로니트 트레이닝 스니커즈',
-                  options: '사이즈: 270 / 색상: 크림슨 레드',
-                  quantity: 1,
-                  status: '스캔 대기',
-                  statusMessage: '스캔 대기',
-                  statusColor: const Color(0xFF3F3BBD),
-                  statusIcon: Icons.qr_code_scanner,
-                  isScanned: false,
-                  imagePlaceholderIcon: Icons.directions_run,
-                ),
-                const SizedBox(height: 12),
-
-                // Item 3
-                _buildOrderItemCard(
-                  brand: 'SONIC-H2',
-                  name: '노이즈 캔슬링 헤드셋',
-                  options: '사이즈: 프리 / 색상: 팬텀 블랙',
-                  quantity: 1,
-                  status: '스캔 대기',
-                  statusMessage: '스캔 대기',
-                  statusColor: const Color(0xFF3F3BBD),
-                  statusIcon: Icons.qr_code_scanner,
-                  isScanned: false,
-                  imagePlaceholderIcon: Icons.headphones,
+                // Order Items List
+                Column(
+                  children: _orderItems.map((item) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: InkWell(
+                        onTap: () async {
+                          final result = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OrderDetailScreen(
+                                item: item,
+                                allItems: _orderItems,
+                                onRefresh: () => setState(() {}),
+                              ),
+                            ),
+                          );
+                          if (result == true) {
+                            setState(() {
+                              item.isScanned = true;
+                              item.status = '스캔완료';
+                              item.statusMessage = '1/1 완료';
+                              item.statusColor = const Color(0xFF16A34A);
+                              item.statusIcon = Icons.check_circle;
+                            });
+                          }
+                        },
+                        borderRadius: BorderRadius.circular(12),
+                        child: _buildOrderItemCard(
+                          brand: item.brand,
+                          name: item.name,
+                          options: item.options,
+                          quantity: item.quantity,
+                          status: item.status,
+                          statusMessage: item.statusMessage,
+                          statusColor: item.statusColor,
+                          statusIcon: item.statusIcon,
+                          isScanned: item.isScanned,
+                          imageUrl: item.imageUrl,
+                          imagePlaceholderIcon: item.imagePlaceholderIcon,
+                        ),
+                      ),
+                    );
+                  }).toList(),
                 ),
                 const SizedBox(height: 24),
               ],
@@ -292,9 +423,13 @@ class OrderScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: _orderItems.every((item) => item.isScanned)
+                          ? _navigateToSuccessScreen
+                          : _markAllAsScanned,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF3F3BBD),
+                        backgroundColor: _orderItems.every((item) => item.isScanned)
+                            ? const Color(0xFF16A34A)
+                            : const Color(0xFF3F3BBD),
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
@@ -304,12 +439,19 @@ class OrderScreen extends StatelessWidget {
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.qr_code_scanner, size: 20),
-                          SizedBox(width: 8),
+                        children: [
+                          Icon(
+                            _orderItems.every((item) => item.isScanned)
+                                ? Icons.arrow_forward
+                                : Icons.qr_code_scanner,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
                           Text(
-                            '전체 스캔 완료',
-                            style: TextStyle(
+                            _orderItems.every((item) => item.isScanned)
+                                ? '피킹 완료 페이지 이동'
+                                : '전체 스캔 완료',
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
@@ -319,16 +461,30 @@ class OrderScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Container(
-                    width: 56,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE9E7ED),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Icon(
-                      Icons.more_vert,
-                      color: Color(0xFF464554),
+                  InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => OrderOptionsBottomSheet(
+                          orderItems: _orderItems,
+                          onRefresh: () => setState(() {}),
+                          orderId: '#P-2024-1015',
+                        ),
+                      );
+                    },
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      width: 56,
+                      height: 56,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE9E7ED),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        Icons.more_vert,
+                        color: Color(0xFF464554),
+                      ),
                     ),
                   ),
                 ],
@@ -351,6 +507,7 @@ class OrderScreen extends StatelessWidget {
     required Color statusColor,
     required IconData statusIcon,
     required bool isScanned,
+    required String imageUrl,
     required IconData imagePlaceholderIcon,
   }) {
     return Container(
@@ -375,8 +532,19 @@ class OrderScreen extends StatelessWidget {
                     bottomLeft: Radius.circular(11),
                   ),
                 ),
-                // TODO: Replace with actual image asset
-                child: Icon(imagePlaceholderIcon, color: const Color(0xFFC7C4D6), size: 40),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(11),
+                    bottomLeft: Radius.circular(11),
+                  ),
+                  child: Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Center(
+                      child: Icon(imagePlaceholderIcon, color: const Color(0xFFC7C4D6), size: 40),
+                    ),
+                  ),
+                ),
               ),
               if (isScanned)
                 Positioned(
@@ -470,3 +638,4 @@ class OrderScreen extends StatelessWidget {
     );
   }
 }
+

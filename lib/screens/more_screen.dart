@@ -1,6 +1,8 @@
+import 'package:admin_rfid/screens/inventory_screen.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
+import 'notification_screen.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
@@ -22,7 +24,11 @@ class MoreScreen extends StatelessWidget {
         leading: const Padding(
           padding: EdgeInsets.only(left: 16.0),
           child: Center(
-            child: Icon(Icons.storefront_outlined, color: AppColors.primary, size: 24),
+            child: Icon(
+              Icons.storefront_outlined,
+              color: AppColors.primary,
+              size: 24,
+            ),
           ),
         ),
         title: const Text(
@@ -35,14 +41,29 @@ class MoreScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: AppColors.primary),
-            onPressed: () {},
+            icon: const Icon(
+              Icons.notifications_none,
+              color: AppColors.primary,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationScreen(),
+                ),
+              );
+            },
           ),
           const SizedBox(width: 8),
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 24.0, bottom: 96.0),
+        padding: const EdgeInsets.only(
+          left: 16.0,
+          right: 16.0,
+          top: 24.0,
+          bottom: 96.0,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -77,11 +98,21 @@ class MoreScreen extends StatelessWidget {
                     height: 64,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(color: const Color(0xFFF1F5F9)),
+                      border: Border.all(color: const Color(0xFFC7C4D7)),
                       color: const Color(0xFFF8FAFC),
                     ),
-                    // TODO: 실제 프로필 이미지 연결
-                    child: const Icon(Icons.person, color: Colors.grey, size: 32),
+                    child: ClipOval(
+                      child: Image.network(
+                        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=60',
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(
+                              Icons.person,
+                              color: Colors.grey,
+                              size: 32,
+                            ),
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -107,7 +138,11 @@ class MoreScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Icon(Icons.chevron_right, color: Color(0xFFC7C4D6), size: 20),
+                  const Icon(
+                    Icons.chevron_right,
+                    color: Color(0xFFC7C4D6),
+                    size: 20,
+                  ),
                 ],
               ),
             ),
@@ -127,10 +162,7 @@ class MoreScreen extends StatelessWidget {
                   SizedBox(width: 8),
                   Text(
                     '제품, 주문 또는 직원 검색',
-                    style: TextStyle(
-                      color: Color(0xFF94A3B8),
-                      fontSize: 16,
-                    ),
+                    style: TextStyle(color: Color(0xFF94A3B8), fontSize: 16),
                   ),
                 ],
               ),
@@ -141,47 +173,61 @@ class MoreScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Container(
-                    height: 128,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF5E5CE6),
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0x0D000000),
-                          blurRadius: 1,
-                          offset: Offset(0, 1),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const InventoryScreen(),
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Icon(Icons.inventory_2_outlined, color: Colors.white, size: 28),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              '재고 확인',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700,
+                      );
+                    },
+                    child: Container(
+                      height: 128,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF5E5CE6),
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0x0D000000),
+                            blurRadius: 1,
+                            offset: Offset(0, 1),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Icon(
+                            Icons.inventory_2_outlined,
+                            color: Colors.white,
+                            size: 28,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                '재고 확인',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              '실시간 인벤토리 조회',
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(0.8),
-                                fontSize: 12,
+                              const SizedBox(height: 2),
+                              Text(
+                                '실시간 인벤토리 조회',
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.8),
+                                  fontSize: 12,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -205,7 +251,11 @@ class MoreScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        Icon(Icons.qr_code_scanner, color: Color(0xFF5E5CE6), size: 28),
+                        Icon(
+                          Icons.qr_code_scanner,
+                          color: Color(0xFF5E5CE6),
+                          size: 28,
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -256,14 +306,22 @@ class MoreScreen extends StatelessWidget {
                     iconBgColor: const Color(0xFFE0E7FF),
                     title: '제품 검색',
                   ),
-                  const Divider(height: 1, color: Color(0xFFF1F5F9), indent: 56),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFF1F5F9),
+                    indent: 56,
+                  ),
                   _buildMenuItem(
                     icon: Icons.storefront,
                     iconColor: const Color(0xFF10B981),
                     iconBgColor: const Color(0xFFD1FAE5),
                     title: '매장 정보',
                   ),
-                  const Divider(height: 1, color: Color(0xFFF1F5F9), indent: 56),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFF1F5F9),
+                    indent: 56,
+                  ),
                   _buildMenuItem(
                     icon: Icons.campaign_outlined,
                     iconColor: const Color(0xFFF59E0B),
@@ -271,7 +329,11 @@ class MoreScreen extends StatelessWidget {
                     title: '공지사항',
                     hasNotification: true,
                   ),
-                  const Divider(height: 1, color: Color(0xFFF1F5F9), indent: 56),
+                  const Divider(
+                    height: 1,
+                    color: Color(0xFFF1F5F9),
+                    indent: 56,
+                  ),
                   _buildMenuItem(
                     icon: Icons.settings_outlined,
                     iconColor: const Color(0xFF64748B),
@@ -290,7 +352,10 @@ class MoreScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {},
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 8,
+                      ),
                       child: const Text(
                         '로그아웃',
                         style: TextStyle(

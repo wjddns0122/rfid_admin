@@ -1,0 +1,214 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1779717683052,
+  "projectRoot": "/Users/nojeong-un/devs/rfid_admin",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "lib",
+      "test"
+    ],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "android": {
+      "path": "android",
+      "purpose": null,
+      "fileCount": 5,
+      "lastAccessed": 1779717683048,
+      "keyFiles": [
+        "build.gradle.kts",
+        "gradle.properties",
+        "local.properties",
+        "settings.gradle.kts"
+      ]
+    },
+    "build": {
+      "path": "build",
+      "purpose": "Build output",
+      "fileCount": 2,
+      "lastAccessed": 1779717683048,
+      "keyFiles": [
+        "89a6598c8854ed031dfc25d83c80860e.cache.dill.track.dill"
+      ]
+    },
+    "ios": {
+      "path": "ios",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1779717683048,
+      "keyFiles": []
+    },
+    "lib": {
+      "path": "lib",
+      "purpose": "Library code",
+      "fileCount": 1,
+      "lastAccessed": 1779717683048,
+      "keyFiles": [
+        "main.dart"
+      ]
+    },
+    "linux": {
+      "path": "linux",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1779717683048,
+      "keyFiles": [
+        "CMakeLists.txt"
+      ]
+    },
+    "macos": {
+      "path": "macos",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1779717683049,
+      "keyFiles": []
+    },
+    "test": {
+      "path": "test",
+      "purpose": "Test files",
+      "fileCount": 1,
+      "lastAccessed": 1779717683049,
+      "keyFiles": [
+        "widget_test.dart"
+      ]
+    },
+    "web": {
+      "path": "web",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1779717683049,
+      "keyFiles": [
+        "favicon.png",
+        "index.html",
+        "manifest.json"
+      ]
+    },
+    "windows": {
+      "path": "windows",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1779717683049,
+      "keyFiles": [
+        "CMakeLists.txt"
+      ]
+    },
+    "android/app": {
+      "path": "android/app",
+      "purpose": "Application code",
+      "fileCount": 1,
+      "lastAccessed": 1779717683049,
+      "keyFiles": [
+        "build.gradle.kts"
+      ]
+    },
+    "lib/models": {
+      "path": "lib/models",
+      "purpose": "Data models",
+      "fileCount": 1,
+      "lastAccessed": 1779717683050,
+      "keyFiles": [
+        "order_item_data.dart"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "lib/screens/rfid_scan_monitor_screen.dart",
+      "accessCount": 5,
+      "lastAccessed": 1779719514585,
+      "type": "file"
+    },
+    {
+      "path": "lib/screens/staff_dashboard_screen.dart",
+      "accessCount": 3,
+      "lastAccessed": 1779718063314,
+      "type": "file"
+    },
+    {
+      "path": "pubspec.yaml",
+      "accessCount": 2,
+      "lastAccessed": 1779718043877,
+      "type": "file"
+    },
+    {
+      "path": "lib/main.dart",
+      "accessCount": 2,
+      "lastAccessed": 1779718048733,
+      "type": "file"
+    },
+    {
+      "path": "lib/screens/inventory_register_screen.dart",
+      "accessCount": 1,
+      "lastAccessed": 1779717808133,
+      "type": "file"
+    },
+    {
+      "path": "lib/theme/app_theme.dart",
+      "accessCount": 1,
+      "lastAccessed": 1779717813078,
+      "type": "file"
+    },
+    {
+      "path": "lib/widgets/custom_bottom_nav_bar.dart",
+      "accessCount": 1,
+      "lastAccessed": 1779717837171,
+      "type": "file"
+    },
+    {
+      "path": "android/settings.gradle.kts",
+      "accessCount": 1,
+      "lastAccessed": 1779717838110,
+      "type": "file"
+    },
+    {
+      "path": "lib/models/rfid_models.dart",
+      "accessCount": 1,
+      "lastAccessed": 1779717961632,
+      "type": "file"
+    },
+    {
+      "path": "lib/services/rfid_database_service.dart",
+      "accessCount": 1,
+      "lastAccessed": 1779717972873,
+      "type": "file"
+    },
+    {
+      "path": "lib/widgets/item_register_dialog.dart",
+      "accessCount": 1,
+      "lastAccessed": 1779717994414,
+      "type": "file"
+    },
+    {
+      "path": "lib/firebase_options.dart",
+      "accessCount": 1,
+      "lastAccessed": 1779718076556,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

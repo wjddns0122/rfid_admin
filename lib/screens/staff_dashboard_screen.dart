@@ -1,5 +1,6 @@
 import 'package:admin_rfid/screens/customer_request_screen.dart';
 import 'package:admin_rfid/screens/order_screen.dart';
+import 'package:admin_rfid/screens/rfid_scan_monitor_screen.dart';
 import 'notification_screen.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
@@ -132,6 +133,37 @@ class StaffDashboardScreen extends StatelessWidget {
             const SizedBox(height: 24),
             const DashboardOperationList(),
             const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (c) => const RfidScanMonitorScreen(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.sensors, color: Colors.white),
+                label: const Text(
+                  'RFID 스캔 모니터',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
               height: 56,
